@@ -10,6 +10,7 @@ import (
 	"os"
 	"rest-api/middleware"
 	ginitem "rest-api/modules/item/transport/gin"
+	"rest-api/modules/media"
 	"time"
 )
 
@@ -41,6 +42,8 @@ func main() {
 	{
 		v1 := api.Group("/v1")
 		{
+			v1.PUT("medias", media.UploadHandler(db))
+
 			items := v1.Group("/items")
 			{
 				items.GET("/pos", ginitem.GetPosItems(postgresDb))

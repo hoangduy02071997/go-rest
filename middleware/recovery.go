@@ -16,7 +16,7 @@ func Recovery() func(*gin.Context) {
 				if err, ok := r.(error); ok {
 					c.AbortWithStatusJSON(http.StatusInternalServerError, common.ErrInternalServer(err))
 				}
-				//panic(r)
+				panic(r)
 			}
 		}()
 		c.Next()
@@ -31,14 +31,16 @@ func RecoveryGin() gin.HandlerFunc {
 
 				if appErr, ok := err.(*common.AppError); ok {
 					c.AbortWithStatusJSON(appErr.StatusCode, appErr)
+					//panic(err) // --> un comment for show log stack trace
 					return
 				}
-
 				appErr := common.ErrInternalServer(err.(error))
 				c.AbortWithStatusJSON(appErr.StatusCode, appErr)
 				panic(err)
 				return
 			}
 		}()
+
+		c.Next()
 	}
 }

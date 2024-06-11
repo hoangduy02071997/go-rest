@@ -15,7 +15,7 @@ func GetItem(db *gorm.DB) func(c *gin.Context) {
 		// Get Id parameter
 		id, err := strconv.Atoi(c.Param("id"))
 		if err != nil {
-			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+			c.JSON(http.StatusBadRequest, common.ErrInvalidRequest(err))
 			return
 		}
 
