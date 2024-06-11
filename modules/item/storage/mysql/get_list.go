@@ -21,10 +21,10 @@ func (s *sqlStorage) GetAllItems(
 	}
 
 	var todoItems []model.TodoItem
-	if err := db.Table(model.TodoItem{}.TableName()).Count(&paging.Total).Error; err != nil {
+	if err := db.Select("id").Table(model.TodoItem{}.TableName()).Count(&paging.Total).Error; err != nil {
 		return nil, err
 	}
-	if err := db.Order("id desc").
+	if err := db.Select("*").Order("id desc").
 		Offset((paging.Page - 1) * paging.Limit).
 		Limit(paging.Limit).Find(&todoItems).
 		Error; err != nil {
