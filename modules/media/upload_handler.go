@@ -16,13 +16,13 @@ func UploadHandler(db *gorm.DB) func(c *gin.Context) {
 			panic(common.ErrInvalidRequest(err))
 		}
 
-		dst := fmt.Sprintf("static/%d_%s", time.Now().UTC().Nanosecond(), fileHeader.Filename)
+		dst := fmt.Sprintf("static/%d_%s", time.Now().UTC().UnixNano(), fileHeader.Filename)
 
 		if err := c.SaveUploadedFile(fileHeader, dst); err != nil {
 			c.JSON(http.StatusBadRequest, common.ErrInternalServer(err))
 		}
 
-		c.JSON(http.StatusOK, common.SimpleSuccessResponse(common.Media{
+		img := common.Media{
 			Id:     1,
 			Url:    dst,
 			Width:  200,
@@ -30,6 +30,9 @@ func UploadHandler(db *gorm.DB) func(c *gin.Context) {
 			Type:   "image",
 			From:   "local",
 			Ext:    "jpeg",
-		}))
+		}
+
+		img.FullFill("http://localhost:8080")
+		c.JSON(http.StatusOK, common.SimpleSuccessResponse(img))
 	}
 }
