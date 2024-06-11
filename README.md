@@ -18,11 +18,12 @@ Golang Restfull API with modules and Clean Architecture
 ├── common                  # common func reusable
 ├── middleware              # all middleware of module
 ├── modules                 # feature as module
-│    └──item                # module item
-│       ├── business        # business logic
-│       ├── model           # model
-│       ├── storage         # storage/infrastructure orm
-│       └── transport       # transport tcp/http
+│    ├──item                # module item
+│    │  ├── business        # business logic
+│    │  ├── model           # model
+│    │  ├── storage         # storage/infrastructure orm
+│    │  └── transport       # transport tcp/http                 # feature as module
+│    └──media               # media module
 ├── go.mod                  # mod file
 └── index.go                # main file          
 ```
