@@ -15,10 +15,16 @@ Golang Restfull API with modules and Clean Architecture
 #### Directory structure
 
 ```bash
-.
-├── common             # common func reusable
-├── middleware         # all middleware of module
-├── modules            # feature as module             
+├── common                  # common func reusable
+├── middleware              # all middleware of module
+├── modules                 # feature as module
+│    └──item                # module item
+│       ├── business        # business logic
+│       ├── model           # model
+│       ├── storage         # storage/infrastructure orm
+│       └── transport       # transport tcp/http
+├── go.mod                  # mod file
+└── index.go                # main file          
 ```
 
 #### Edit & Deploy
@@ -89,24 +95,3 @@ The output will be something similar to:
   ...
 ]
 ```
-
-
-### Using database with an ORM
-
-Parameters required to connect to PostgreSQL on project are already available as the following environment variables:
-
-- `POSTGRES_HOSTNAME`
-- `POSTGRES_PORT`
-- `POSTGRES_USERNAME`
-- `POSTGRES_PASSWORD`
-
-You can use Go ORMs like [go-pg/pq](https://github.com/go-pg/pg) and [jmoiron/sqlx](https://github.com/jmoiron/sqlx) to connect to Postgres.
-
-Parameters required to connect to MySQL on project are already available as the following environment variables:
-
-- `MYSQL_HOSTNAME`
-- `MYSQL_PORT`
-- `MYSQL_USERNAME`
-- `MYSQL_PASSWORD`
-
-You can use Go ORMs like [go-pg/pq](https://github.com/go-pg/pg) and [jmoiron/sqlx](https://github.com/jmoiron/sqlx) to connect to MySQL.
